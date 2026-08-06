@@ -121,9 +121,36 @@ button {
   cursor: pointer;
 }
 
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 button.secondary {
   border: 1px solid rgba(255, 255, 255, 0.18);
   background: transparent;
+}
+
+.status-message {
+  color: #b9f1cf;
+  font-size: 0.9rem;
+}
+
+.ticket-list {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.ticket-tab {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.18);
+  color: rgba(247, 242, 234, 0.7);
+  text-align: left;
+}
+
+.ticket-tab.active {
+  border-color: rgba(230, 64, 112, 0.72);
+  color: #fff;
 }
 
 .workflow-panel {
@@ -140,6 +167,22 @@ button.secondary {
 .panel-header h2 {
   margin-top: 0.35rem;
   font-size: clamp(1.8rem, 4vw, 3.2rem);
+}
+
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin-bottom: 1rem;
+}
+
+.meta-grid span,
+.empty-state {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 0.8rem;
+  background: rgba(0, 0, 0, 0.16);
+  color: rgba(247, 242, 234, 0.72);
 }
 
 .timeline {
@@ -196,6 +239,10 @@ pre {
   }
 
   .timeline article {
+    grid-template-columns: 1fr;
+  }
+
+  .meta-grid {
     grid-template-columns: 1fr;
   }
 }

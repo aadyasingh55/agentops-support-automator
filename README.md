@@ -55,7 +55,7 @@ docker compose up --build
 Services:
 
 - API: http://localhost:8000
-- Frontend: http://localhost:3000
+- Frontend: http://localhost:3004
 - API docs: http://localhost:8000/docs
 
 ## Example Workflow
