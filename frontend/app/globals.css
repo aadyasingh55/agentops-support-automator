@@ -1,0 +1,201 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #101115;
+  color: #f7f2ea;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+main {
+  min-height: 100vh;
+  padding: 2rem;
+  background:
+    radial-gradient(circle at 82% 10%, rgba(49, 123, 255, 0.24), transparent 25rem),
+    radial-gradient(circle at 18% 78%, rgba(230, 64, 112, 0.22), transparent 24rem),
+    #101115;
+}
+
+.topbar,
+.workspace,
+.panel-header,
+.review-card > div {
+  display: flex;
+  gap: 1rem;
+}
+
+.topbar {
+  align-items: end;
+  justify-content: space-between;
+  max-width: 1180px;
+  margin: 0 auto 2rem;
+}
+
+.topbar p,
+.eyebrow {
+  margin: 0;
+  color: #ff6d99;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+h1 {
+  margin-top: 0.4rem;
+  font-size: clamp(2.4rem, 6vw, 5rem);
+  line-height: 0.95;
+}
+
+.topbar span,
+.panel-header strong {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  padding: 0.7rem 0.9rem;
+  color: #b9f1cf;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+}
+
+.workspace {
+  align-items: stretch;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.ticket-panel,
+.workflow-panel,
+.review-card {
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.28);
+}
+
+.ticket-panel {
+  display: grid;
+  width: min(100%, 360px);
+  gap: 1rem;
+  padding: 1.2rem;
+}
+
+label {
+  display: grid;
+  gap: 0.45rem;
+  color: rgba(247, 242, 234, 0.7);
+  font-size: 0.9rem;
+}
+
+input,
+textarea {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  padding: 0.9rem;
+  background: rgba(0, 0, 0, 0.25);
+  color: #f7f2ea;
+  font: inherit;
+}
+
+textarea {
+  min-height: 12rem;
+  resize: vertical;
+}
+
+button {
+  border: 0;
+  border-radius: 8px;
+  padding: 0.9rem 1rem;
+  background: #e64070;
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+button.secondary {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: transparent;
+}
+
+.workflow-panel {
+  flex: 1;
+  padding: 1.2rem;
+}
+
+.panel-header {
+  align-items: start;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+}
+
+.panel-header h2 {
+  margin-top: 0.35rem;
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+}
+
+.timeline {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.timeline article {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: 1rem;
+  padding: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.16);
+}
+
+.timeline span {
+  color: #b9f1cf;
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.timeline p {
+  margin-top: 0.25rem;
+  color: rgba(247, 242, 234, 0.66);
+}
+
+.review-card {
+  margin-top: 1rem;
+  padding: 1rem;
+}
+
+pre {
+  overflow: auto;
+  margin: 1rem 0;
+  color: rgba(247, 242, 234, 0.78);
+  white-space: pre-wrap;
+}
+
+@media (max-width: 800px) {
+  main {
+    padding: 1rem;
+  }
+
+  .topbar,
+  .workspace {
+    display: grid;
+  }
+
+  .ticket-panel {
+    width: 100%;
+  }
+
+  .timeline article {
+    grid-template-columns: 1fr;
+  }
+}
