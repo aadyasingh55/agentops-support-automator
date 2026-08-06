@@ -8,6 +8,7 @@ from app.agents.drafter import draft_response
 from app.agents.ingestion import ingest_ticket
 from app.agents.lookup import lookup_evidence
 from app.agents.planner import plan_workflow
+from app.core.telemetry import AgentTelemetry
 from app.models.ticket import Ticket
 from app.schemas.ticket import ReviewDecision
 
@@ -35,6 +36,19 @@ def _append_state(ticket: Ticket, node: str, status: str, payload: dict[str, Any
         }
     )
     ticket.state_history = history
+
+
+def _append_failure(ticket: Ticket, node: str, exc: Exception) -> None:
+    _append_state(
+        ticket,
+        node,
+        "failed",
+        {
+            "error": str(exc),
+            "fallback": "workflow paused for manual triage",
+        },
+    )
+    ticket.status = "failed_manual_triage"
 
 
 def _ingestion_node(state: WorkflowState) -> WorkflowState:
@@ -88,8 +102,18 @@ def build_support_workflow():
 
 
 def run_initial_workflow(db: Session, ticket: Ticket) -> None:
+    telemetry = AgentTelemetry()
     workflow = build_support_workflow()
-    result = workflow.invoke({"title": ticket.title, "body": ticket.body})
+
+    try:
+        with telemetry.node("support_workflow") as trace:
+            result = workflow.invoke({"title": ticket.title, "body": ticket.body})
+        _append_state(ticket, "agentops_trace", "completed", trace)
+    except Exception as exc:
+        _append_failure(ticket, "support_workflow", exc)
+        db.add(ticket)
+        db.commit()
+        return
 
     ingested = result["ingested"]
     _append_state(ticket, "ingestion_agent", "completed", ingested)
@@ -134,22 +158,24 @@ def apply_review_decision(db: Session, ticket: Ticket, decision: ReviewDecision)
             {"reason": f"ticket is {ticket.status}"},
         )
     elif decision.decision == "approved":
+        telemetry = AgentTelemetry()
         _append_state(
             ticket,
             "human_review_gate",
             "approved",
             {"reviewer": decision.reviewer, "notes": decision.notes},
         )
-        _append_state(
-            ticket,
-            "execution_node",
-            "completed",
-            {
-                "action": "safe_response_prepared",
-                "result": "Draft marked ready for customer send and internal follow-up.",
-            },
-        )
-        ticket.status = "resolved"
+        try:
+            with telemetry.node("execution_node") as trace:
+                payload = {
+                    "action": "safe_response_prepared",
+                    "result": "Draft marked ready for customer send and internal follow-up.",
+                    "trace_id": trace["trace_id"],
+                }
+            _append_state(ticket, "execution_node", "completed", payload)
+            ticket.status = "resolved"
+        except Exception as exc:
+            _append_failure(ticket, "execution_node", exc)
     else:
         ticket.status = "needs_revision"
         _append_state(
