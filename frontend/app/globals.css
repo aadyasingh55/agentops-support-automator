@@ -2,20 +2,36 @@
   box-sizing: border-box;
 }
 
+:root {
+  --bg: #080b12;
+  --panel: #111827;
+  --panel-soft: #182132;
+  --ink: #f5f7fb;
+  --muted: #9aa8bd;
+  --line: rgba(154, 168, 189, 0.22);
+  --amber: #f2a93b;
+  --blue: #5aa9ff;
+  --green: #63d99e;
+  --red: #ff6b7a;
+}
+
 body {
   margin: 0;
-  background: #101115;
-  color: #f7f2ea;
-  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif;
 }
 
 main {
   min-height: 100vh;
-  padding: 2rem;
+  padding: 1.2rem;
   background:
-    radial-gradient(circle at 82% 10%, rgba(49, 123, 255, 0.24), transparent 25rem),
-    radial-gradient(circle at 18% 78%, rgba(230, 64, 112, 0.22), transparent 24rem),
-    #101115;
+    linear-gradient(90deg, rgba(90, 169, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(rgba(90, 169, 255, 0.06) 1px, transparent 1px),
+    radial-gradient(circle at 18% 10%, rgba(242, 169, 59, 0.16), transparent 26rem),
+    radial-gradient(circle at 92% 18%, rgba(90, 169, 255, 0.15), transparent 30rem),
+    var(--bg);
+  background-size: 56px 56px, 56px 56px, auto, auto, auto;
 }
 
 .topbar,
@@ -29,17 +45,19 @@ main {
 .topbar {
   align-items: end;
   justify-content: space-between;
-  max-width: 1180px;
-  margin: 0 auto 2rem;
+  max-width: 1280px;
+  margin: 0 auto 1.2rem;
+  padding: 1rem 0.25rem;
 }
 
 .topbar p,
 .eyebrow {
   margin: 0;
-  color: #ff6d99;
+  color: var(--amber);
+  font-family: "SFMono-Regular", Consolas, monospace;
   font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
+  font-weight: 800;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
@@ -51,73 +69,98 @@ p {
 }
 
 h1 {
-  margin-top: 0.4rem;
-  font-size: clamp(2.4rem, 6vw, 5rem);
-  line-height: 0.95;
+  margin-top: 0.2rem;
+  max-width: 12ch;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(3rem, 8vw, 6.8rem);
+  font-weight: 500;
+  line-height: 0.86;
 }
 
 .topbar span,
 .panel-header strong {
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 8px;
-  padding: 0.7rem 0.9rem;
-  color: #b9f1cf;
-  font-size: 0.78rem;
+  border: 1px solid rgba(242, 169, 59, 0.38);
+  border-radius: 999px;
+  padding: 0.72rem 0.95rem;
+  color: var(--amber);
+  background: rgba(242, 169, 59, 0.08);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 0.72rem;
   text-transform: uppercase;
 }
 
 .workspace {
   align-items: stretch;
-  max-width: 1180px;
+  max-width: 1280px;
   margin: 0 auto;
 }
 
 .ticket-panel,
 .workflow-panel,
 .review-card {
-  border: 1px solid rgba(255, 255, 255, 0.13);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.07);
-  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.28);
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent), var(--panel);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.42);
 }
 
 .ticket-panel {
   display: grid;
-  width: min(100%, 360px);
-  gap: 1rem;
-  padding: 1.2rem;
+  width: min(100%, 370px);
+  gap: 0.9rem;
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+.ticket-panel::before {
+  content: "LIVE INTAKE";
+  display: block;
+  border-left: 4px solid var(--amber);
+  padding: 0.55rem 0.7rem;
+  background: rgba(242, 169, 59, 0.1);
+  color: var(--ink);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
 }
 
 label {
   display: grid;
-  gap: 0.45rem;
-  color: rgba(247, 242, 234, 0.7);
-  font-size: 0.9rem;
+  gap: 0.42rem;
+  color: var(--muted);
+  font-size: 0.82rem;
 }
 
 input,
 textarea {
   width: 100%;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 8px;
-  padding: 0.9rem;
-  background: rgba(0, 0, 0, 0.25);
-  color: #f7f2ea;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 0.85rem;
+  background: #080d16;
+  color: var(--ink);
   font: inherit;
 }
 
+input:focus,
+textarea:focus {
+  outline: 2px solid rgba(242, 169, 59, 0.42);
+  outline-offset: 1px;
+}
+
 textarea {
-  min-height: 12rem;
+  min-height: 11rem;
   resize: vertical;
 }
 
 button {
   border: 0;
-  border-radius: 8px;
+  border-radius: 3px;
   padding: 0.9rem 1rem;
-  background: #e64070;
-  color: white;
-  font-weight: 800;
+  background: var(--amber);
+  color: #11100b;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-weight: 900;
+  letter-spacing: 0.04em;
   cursor: pointer;
 }
 
@@ -127,112 +170,149 @@ button:disabled {
 }
 
 button.secondary {
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: transparent;
+  border: 1px solid rgba(255, 107, 122, 0.36);
+  background: rgba(255, 107, 122, 0.1);
+  color: #ffd2d8;
 }
 
 .status-message {
-  color: #b9f1cf;
-  font-size: 0.9rem;
+  border: 1px solid rgba(99, 217, 158, 0.25);
+  padding: 0.75rem;
+  color: var(--green);
+  background: rgba(99, 217, 158, 0.08);
+  font-size: 0.88rem;
 }
 
 .ticket-list {
   display: grid;
-  gap: 0.5rem;
+  gap: 0.45rem;
+  max-height: 12rem;
+  overflow: auto;
 }
 
 .ticket-tab {
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(0, 0, 0, 0.18);
-  color: rgba(247, 242, 234, 0.7);
+  border: 1px solid var(--line);
+  background: #0d1420;
+  color: var(--muted);
   text-align: left;
 }
 
 .ticket-tab.active {
-  border-color: rgba(230, 64, 112, 0.72);
-  color: #fff;
+  border-color: var(--blue);
+  color: var(--ink);
+  background: rgba(90, 169, 255, 0.12);
 }
 
 .workflow-panel {
   flex: 1;
-  padding: 1.2rem;
+  padding: 1rem;
+  border-radius: 4px;
 }
 
 .panel-header {
   align-items: start;
   justify-content: space-between;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
 }
 
 .panel-header h2 {
-  margin-top: 0.35rem;
-  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  margin-top: 0.32rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 5vw, 4.4rem);
+  font-weight: 500;
+  line-height: 0.92;
 }
 
 .meta-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.7rem;
-  margin-bottom: 1rem;
+  gap: 0.6rem;
+  margin-bottom: 0.8rem;
 }
 
 .meta-grid span,
 .state-summary,
 .empty-state {
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 8px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
   padding: 0.8rem;
-  background: rgba(0, 0, 0, 0.16);
-  color: rgba(247, 242, 234, 0.72);
+  background: var(--panel-soft);
+  color: var(--muted);
 }
 
 .state-summary {
   margin-bottom: 1rem;
-  color: #b9f1cf;
+  color: var(--green);
 }
 
 .timeline {
   display: grid;
-  gap: 0.7rem;
+  gap: 0.55rem;
+  counter-reset: step;
 }
 
 .timeline article {
+  counter-increment: step;
+  position: relative;
   display: grid;
-  grid-template-columns: 8rem 1fr;
+  grid-template-columns: 7.8rem 1fr;
   gap: 1rem;
-  padding: 0.9rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 8px;
-  background: rgba(0, 0, 0, 0.16);
+  padding: 0.95rem;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--blue);
+  border-radius: 3px;
+  background: #0b111c;
+}
+
+.timeline article::before {
+  content: counter(step, decimal-leading-zero);
+  position: absolute;
+  right: 0.8rem;
+  top: 0.65rem;
+  color: rgba(90, 169, 255, 0.18);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 1.6rem;
+  font-weight: 900;
 }
 
 .timeline span {
-  color: #b9f1cf;
-  font-size: 0.74rem;
+  color: var(--green);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 0.7rem;
   font-weight: 800;
   text-transform: uppercase;
 }
 
+.timeline h3 {
+  font-size: 1rem;
+}
+
 .timeline p {
   margin-top: 0.25rem;
-  color: rgba(247, 242, 234, 0.66);
+  color: var(--muted);
 }
 
 .review-card {
   margin-top: 1rem;
   padding: 1rem;
+  border-radius: 4px;
 }
 
 pre {
   overflow: auto;
   margin: 1rem 0;
-  color: rgba(247, 242, 234, 0.78);
+  border: 1px solid var(--line);
+  padding: 1rem;
+  background: #070b12;
+  color: #cdd7e6;
   white-space: pre-wrap;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 850px) {
   main {
-    padding: 1rem;
+    padding: 0.8rem;
   }
 
   .topbar,
