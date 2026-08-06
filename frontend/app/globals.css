@@ -177,12 +177,18 @@ button.secondary {
 }
 
 .meta-grid span,
+.state-summary,
 .empty-state {
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 8px;
   padding: 0.8rem;
   background: rgba(0, 0, 0, 0.16);
   color: rgba(247, 242, 234, 0.72);
+}
+
+.state-summary {
+  margin-bottom: 1rem;
+  color: #b9f1cf;
 }
 
 .timeline {

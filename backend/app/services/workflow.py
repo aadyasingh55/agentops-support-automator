@@ -134,13 +134,22 @@ def apply_review_decision(db: Session, ticket: Ticket, decision: ReviewDecision)
             {"reason": f"ticket is {ticket.status}"},
         )
     elif decision.decision == "approved":
-        ticket.status = "approved_for_execution"
         _append_state(
             ticket,
             "human_review_gate",
             "approved",
             {"reviewer": decision.reviewer, "notes": decision.notes},
         )
+        _append_state(
+            ticket,
+            "execution_node",
+            "completed",
+            {
+                "action": "safe_response_prepared",
+                "result": "Draft marked ready for customer send and internal follow-up.",
+            },
+        )
+        ticket.status = "resolved"
     else:
         ticket.status = "needs_revision"
         _append_state(

@@ -37,6 +37,14 @@ export default function Home() {
     () => tickets.find((ticket) => ticket.id === selectedId) ?? tickets[0],
     [selectedId, tickets],
   );
+  const finalSummary =
+    selectedTicket?.status === "resolved"
+      ? "Approved workflow completed. The execution node prepared the response for customer send."
+      : selectedTicket?.status === "needs_revision"
+        ? "Reviewer rejected this run. The workflow is parked for a safer revised plan."
+        : selectedTicket?.status === "awaiting_review"
+          ? "Human sign-off is required before execution."
+          : "Run a workflow to create an auditable state trail.";
 
   async function loadTickets() {
     const response = await fetch(`${apiUrl}/tickets`, { cache: "no-store" });
@@ -171,6 +179,7 @@ export default function Home() {
                 <span>Priority: {selectedTicket.priority}</span>
                 <span>Customer: {selectedTicket.customer}</span>
               </div>
+              <div className="state-summary">{finalSummary}</div>
 
               <div className="timeline">
                 {selectedTicket.state_history.map((item, index) => (
